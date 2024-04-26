@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License Plate Detection</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            margin: 0;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        p {
+            margin-top: 10px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .left-column,
+        .right-column {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        form input[type="file"] {
+            border: 2px solid #007BFF;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        form input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .container img {
+            max-width: 100%;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+        }
+
+        .tips-section {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .tips-section h2 {
+            color: #333;
+        }
+
+        .tips-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .tips-section li {
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Car License Plate Detection</h1>
+    <form action="/process" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <br>
+        <button type="submit">Detect License Plate</button>
+    </form>
+    {% if result %}
+        <h2>Result:</h2>
+        <p>{{ result }}</p>
+        <div class="container">
+            <div class="left-column">
+                <h2>Uploaded Image</h2>
+                <img src="{{ url_for('uploaded_file', folder=temp_dir_name, filename='uploaded_image.jpg') }}" alt="Uploaded Image">
+            </div>
+            <div class="right-column">
+                <h2>Cropped Image</h2>
+                <img src="{{ url_for('uploaded_file', folder=temp_dir_name, filename='cropped_image.jpg') }}" alt="Cropped Image">
+                <h2>Character Recognition Result:</h2>
+                <p>License Plate Number: {{ result }}</p>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/shivanshtri010/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/shivanshtri010" target="_blank">GitHub</a>
+            <a href="https://www.instagram.com/shivanshtripathi010/" target="_blank">Instagram</a>
+        </div>
+    {% else %}
+        <div class="tips-section">
+            <h2>Tips for Better Results:</h2>
+            <ul>
+                <li>Upload an HSRP Plate.</li>
+                <li>Use supported formats: PNG, JPEG, JPG.</li>
+                <li>Take a photo in portrait orientation.</li>
+                <li>Avoid taking photos from the side; capture from the front for a clear image.</li>
+            </ul>
+        </div>
+    {% endif %}
+</body>
+
+</html>
